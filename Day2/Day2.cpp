@@ -4,7 +4,7 @@
 #include <sstream>
 #include <vector>
 
-std::vector<std::vector<int>> parseFile()
+std::vector<std::vector<int>> getMatrixFromTextfile()
 {
   std::vector<std::vector<int>> inputMatrix;
   std::vector<int> inputRow;
@@ -30,6 +30,16 @@ std::vector<std::vector<int>> parseFile()
 
 int main()
 {
-  std::vector<std::vector<int>> inputMatrix = parseFile();
-  return 0;
+  std::vector<std::vector<int>> inputMatrix = getMatrixFromTextfile();
+  int solution = 0;
+  for(int row = 0; row < inputMatrix.size(); ++row) {
+    int high, low;
+    high = low = inputMatrix[row][0];
+    for(int column = 1; column < inputMatrix[row].size(); ++column) {
+      high = (high < inputMatrix[row][column]) ? inputMatrix[row][column] : high;
+      low = (low > inputMatrix[row][column]) ? inputMatrix[row][column] : low;
+    }
+    solution += (high - low);
+  }
+  std::cout << solution << std::endl;
 }
